@@ -29,7 +29,6 @@ export class FormComponent {
   });
 
   handleSubmit() {
-    console.log('this.form', this.form);
     if (this.form.valid) {
       this.loading.emit(true);
 
@@ -42,12 +41,10 @@ export class FormComponent {
         .subscribe({
           // next:method that is executed when the request is successful, error: method that is executed when the request fails
           next: (res) => {
-            console.log(res);
             this.responseReceived.emit(res);
             this.loading.emit(false);
           },
           error: (error) => {
-            console.error('Error:', error);
             this.responseReceived.emit({ puedeCircular: false, mensaje: "Ha ocurrido un error en el servidor, por favor intenta más tarde" });
             this.loading.emit(false);
           },

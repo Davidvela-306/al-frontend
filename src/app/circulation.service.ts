@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CirculationResponse } from '@app/circulation-response.model';
-
+import { environment } from 'src/environments/environment';
 export interface PicoPlacaRequest {
   plate: string;
   date: string;
@@ -14,7 +14,17 @@ export interface PicoPlacaRequest {
 })
 export class CirculationService {
   private http = inject(HttpClient);
-  private readonly API_URL = "http://localhost:8080/api";
+  private apiUrl: string;
+
+  constructor() {
+    this.apiUrl=environment.apiUrl;
+  }
+
+  async getApiUrl(): Promise<string> {
+    const response = await fetch(this.apiUrl);
+    const apiUrl = await response.text();
+    return apiUrl;
+  }
 
   /**
    * Performs a POST request to the /pico-placa endpoint with the given data to
@@ -28,7 +38,7 @@ export class CirculationService {
     data: Partial<PicoPlacaRequest>
   ): Observable<CirculationResponse> {
     return this.http.post<CirculationResponse>(
-      `${this.API_URL}/pico-placa`,
+      `${this.apiUrl}/pico-placa`,
       data
     );
   }
