@@ -1,12 +1,41 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { FormComponent } from './formulario/formulario';
+import { CirculationResponse } from '@app/circulation-response.model';
 
 @Component({
+  standalone: true,
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [CommonModule, FormsModule, FormComponent],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
-  protected title = 'frontend';
+  respuesta: CirculationResponse | null = null;
+  isLoading = false;
+
+  onResponseReceived(response: CirculationResponse) {
+    this.respuesta = response;
+  }
+
+  onLoadingChange(loading: boolean) {
+    this.isLoading = loading;
+  }
+
+  isSuccessResponse(): boolean {
+    if (!this.respuesta) return false;
+
+    const successMessages = [
+      'Puede circular',
+      'No puede circular',
+    ];
+
+    return (
+      this.respuesta.puedeCircular !== undefined &&
+      successMessages.some((msg) =>
+        this.respuesta!.mensaje.toLowerCase().includes(msg.toLowerCase())
+      )
+    );
+  }
 }

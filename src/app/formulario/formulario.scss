@@ -1,0 +1,275 @@
+.form-container {
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  label {
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+  }
+
+  input {
+    padding: 1rem 1.25rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    color: #2d3748;
+
+    &:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      transform: translateY(-1px);
+    }
+
+    &:hover:not(:focus) {
+      border-color: #cbd5e0;
+    }
+
+    &::placeholder {
+      color: #a0aec0;
+    }
+
+    // Specific styles for different types of input
+    &[type="text"] {
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    &[type="date"],
+    &[type="time"] {
+      cursor: pointer;
+
+      &::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        filter: opacity(0.7);
+        transition: filter 0.2s ease;
+
+        &:hover {
+          filter: opacity(1);
+        }
+      }
+    }
+  }
+
+  // Validation styles
+  &.invalid {
+    input {
+      border-color: #e53e3e;
+      box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+    }
+
+    label {
+      color: #e53e3e;
+    }
+
+    &::after {
+      content: "⚠️ Este campo es requerido";
+      color: #e53e3e;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      animation: shake 0.3s ease-in-out;
+    }
+  }
+
+  &.valid {
+    input {
+      border-color: #38a169;
+      box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.1);
+    }
+
+    &::after {
+      content: "✓";
+      color: #38a169;
+      font-size: 1.2rem;
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-top: 0.75rem;
+    }
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 1.25rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+
+    &::before {
+      left: 100%;
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+  }
+
+  &:disabled {
+    background: #a0aec0;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    &::before {
+      display: none;
+    }
+  }
+
+  // State of loading
+  &.loading {
+    background: #a0aec0;
+    cursor: not-allowed;
+
+    &::after {
+      content: "";
+      width: 20px;
+      height: 20px;
+      border: 2px solid transparent;
+      border-top: 2px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Animations:
+form {
+  animation: formSlideIn 0.6s ease-out;
+}
+
+@keyframes formSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-control {
+  animation: fieldSlideIn 0.4s ease-out;
+  animation-fill-mode: both;
+
+  &:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  &:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+}
+
+@keyframes fieldSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Responsive design
+@media (max-width: 480px) {
+  .form-control {
+    input {
+      padding: 0.875rem 1rem;
+      font-size: 0.95rem;
+    }
+  }
+
+  button {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+}

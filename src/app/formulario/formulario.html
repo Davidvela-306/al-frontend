@@ -1,0 +1,21 @@
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <div class="form-control">
+    <label for="plate">Número de placa</label>
+    <input
+      type="text"
+      placeholder="Ex: ABC-123"
+      id="plate"
+      formControlName="plate"
+    />
+  </div>
+  <div class="form-control">
+    <label for="date">Fecha</label>
+    <input type="date" id="date" formControlName="date" />
+  </div>
+  <div class="form-control">
+    <label for="time">Hora</label>
+    <input type="time" id="time" formControlName="time" />
+  </div>
+
+  <button>Enviar</button>
+</form>
