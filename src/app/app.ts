@@ -14,6 +14,7 @@ import { CirculationResponse } from '@app/circulation-response.model';
 export class App {
   respuesta: CirculationResponse | null = null;
   isLoading = false;
+  reset = false;
 
   onResponseReceived(response: CirculationResponse) {
     this.respuesta = response;
@@ -26,10 +27,7 @@ export class App {
   isSuccessResponse(): boolean {
     if (!this.respuesta) return false;
 
-    const successMessages = [
-      'Puede circular',
-      'No puede circular',
-    ];
+    const successMessages = ['Puede circular', 'No puede circular'];
 
     return (
       this.respuesta.puedeCircular !== undefined &&
@@ -37,5 +35,11 @@ export class App {
         this.respuesta!.mensaje.toLowerCase().includes(msg.toLowerCase())
       )
     );
+  }
+  resetApp() {
+    this.respuesta = null;
+    this.isLoading = false;
+    this.reset = true;
+    setTimeout(() => (this.reset = false));
   }
 }

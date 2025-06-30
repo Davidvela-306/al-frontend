@@ -6,15 +6,15 @@
         Para consultar si tu vehículo puede circular, por favor ingresa la
         informacion solicitada
       </p>
-      <button>🔄</button>
+      <button (click)="resetApp()">🔄</button>
     </div>
     <div class="app-wrapper">
       <div class="form-container">
         <formulario
+          [reset]="reset"
           (responseReceived)="onResponseReceived($event)"
           (loading)="onLoadingChange($event)"
-        >
-        </formulario>
+        ></formulario>
       </div>
       <div class="response-container">
         <img
