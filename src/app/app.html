@@ -2,54 +2,67 @@
   <div class="main-content">
     <div class="app-header">
       <h1>Pico y Placa</h1>
-      <p>Consulta si tu vehículo puede circular</p>
+      <p>
+        Para consultar si tu vehículo puede circular, por favor ingresa la
+        informacion solicitada
+      </p>
+      <button>🔄</button>
     </div>
-
-    <formulario
-      (responseReceived)="onResponseReceived($event)"
-      (loading)="onLoadingChange($event)"
-    >
-    </formulario>
-
-    <!-- Show loading -->
-    <div *ngIf="isLoading" class="loading">
-      <div class="spinner"></div>
-      <p>Consultando información...</p>
-    </div>
-
-    <!-- successful response (circulation result) -->
-    <div
-      *ngIf="respuesta && !isLoading && isSuccessResponse()"
-      class="response"
-    >
-      <h3>Resultado de la consulta</h3>
-      <div
-        class="result-card"
-        [ngClass]="{'can-circulate': respuesta.puedeCircular, 'cannot-circulate': !respuesta.puedeCircular}"
-      >
-        <div class="result-icon">
-          {{ respuesta.puedeCircular ? '✅' : '❌' }}
-        </div>
-        <p>
-          <strong>¿Puede circular?:</strong> {{ respuesta.puedeCircular ? 'Sí' :
-          'No' }}
-        </p>
-        <p><strong>Mensaje:</strong> {{ respuesta.mensaje }}</p>
+    <div class="app-wrapper">
+      <div class="form-container">
+        <formulario
+          (responseReceived)="onResponseReceived($event)"
+          (loading)="onLoadingChange($event)"
+        >
+        </formulario>
       </div>
-    </div>
+      <div class="response-container">
+        <img
+          *ngIf="!respuesta && !isLoading"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQuG57-BP0S1f6SaCIGBiSWyzDy9N4ul8ZR_9UvZXbEFgIt7-E5-tU38f_Liy4cXBt5Cw&usqp=CAU"
+          alt="imagen municipio de Quito"
+          class="img"
+        />
 
-    <!-- backend validation errors -->
-    <div
-      *ngIf="respuesta && !isLoading && !isSuccessResponse()"
-      class="response error-response"
-    >
-      <h3>Error en los datos</h3>
-      <div class="error-card">
-        <div class="error-icon">⚠️</div>
-        <p>Por favor, verifica los datos ingresados e intenta nuevamente.</p>
-        <p class="error-suggestion">
-          <strong>Error:</strong> {{ respuesta.mensaje }}
-        </p>
+        <!-- Show loading -->
+        <div *ngIf="isLoading" class="loading">
+          <div class="spinner"></div>
+          <p>Consultando información...</p>
+        </div>
+
+        <!-- successful response (circulation result) -->
+        <div
+          *ngIf="respuesta && !isLoading && isSuccessResponse()"
+          class="response"
+        >
+          <h3>Estado de la consulta</h3>
+          <div
+            class="result-card"
+            [ngClass]="{'can-circulate': respuesta.puedeCircular, 'cannot-circulate': !respuesta.puedeCircular}"
+          >
+            <div class="result-icon">
+              {{ respuesta.puedeCircular ? '✅' : '❌' }}
+            </div>
+            <p>{{ respuesta.mensaje }}</p>
+          </div>
+        </div>
+
+        <!-- backend validation errors -->
+        <div
+          *ngIf="respuesta && !isLoading && !isSuccessResponse()"
+          class="response error-response"
+        >
+          <h3>Error en los datos</h3>
+          <div class="error-card">
+            <div class="error-icon">⚠️</div>
+            <p>
+              Por favor, verifica los datos ingresados e intenta nuevamente.
+            </p>
+            <p class="error-suggestion">
+              <strong>Error:</strong> {{ respuesta.mensaje }}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
