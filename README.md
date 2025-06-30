@@ -1,59 +1,101 @@
-# Frontend
+# Componente Frontend - Sistema de validación de Pico y Placa
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
+## Autor:
 
-## Development server
+[@David Vela](https://github.com/Davidvela-306)
 
-To start a local development server, run:
+---
+## Descripción
 
-```bash
-ng serve
+Componente UI que permite interactuar con un formulario el cual valida los datos para conocer en qué dias puede circular su vehículo 🚙.
+
+Recordemos que está validación está basada el la 
+[normativa vigente de pico y placa de Quito-Ecuador 2025  ](https://www.amt.gob.ec/index.php/informacion/pico-y-placa/)
+
+---
+
+## Interfacez del sistema
+  
+  ![Sistema de pico y placa](https://github.com/Davidvela-306/al-frontend/blob/production/public/initial_state.png?raw=true)
+
+  ![Sistema de pico y placa](https://github.com/Davidvela-306/al-frontend/blob/production/public/loading.png?raw=true)
+
+  ![Sistema de pico y placa](https://raw.githubusercontent.com/Davidvela-306/al-frontend/refs/heads/production/public/succes.png)
+
+  ![Sistema de pico y placa](https://github.com/Davidvela-306/al-frontend/blob/production/public/no_succes.png?raw=true)
+
+  ![Sistema de pico y placa](https://github.com/Davidvela-306/al-frontend/blob/production/public/warning.png?raw=true)
+
+
+---
+
+## 🛠 Stack Tecnológico
+
+#### Cliente (Frontend)
+
+- **AngularJs**
+
+#### Servidor (Backend)
+
+- **Java Spring boot**
+
+---
+
+## 📄 Manual de usuario
+
+A continuación, los pasos para ejecutar el componente frontend en local y su configuración para producción
+
+---
+
+## 🚀 Instalación y Ejecución
+
+### 🔧 Requisitos
+
+[Docker documentation](https://docs.docker.com/)
+
+* Tener Docker Desktop instalado y abierto
+
+* Crear el archivo`src\environments\environment.ts` para producción con la url a la API de consumo
+  
+Dev mode: `src\environments\environment.development.ts`
+
+Production mode: `src\environments\environment.development.ts`
+
+Example:
+```typescript
+export const environment = {
+  production: false, //recuerda cambiar a true para producción
+  apiUrl: 'http://localhost:8080/api',
+};
+
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 🔹 Instalación
 
-## Code scaffolding
+#### Clonar el repositorio:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+`git clone https://github.com/Davidvela-306/al-frontend.git`
 
-```bash
-ng generate component component-name
-```
+`cd ./al-frontend`
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+`git checkout production`
 
-```bash
-ng generate --help
-```
+`docker build -t frontend .`
+`docker run --rm -d -p 80:80/tcp frontend:latest`
 
-## Building
+Ahora podrá visualizar su web en [localhost](http://localhost/)
 
-To build the project run:
+> 💡 **Nota:** Asegúrate de configurar correctamente las variables de entorno como lo explicamos anteriormente
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 📩 Contacto
 
-## Running unit tests
+Si tienes alguna pregunta o sugerencia, no dudes en contactarme:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+📧 **Email:** davidvela306tr@gmail.com  
+🔗 **GitHub:** [David Vela](https://github.com/Davidvela-306)
 
-```bash
-ng test
-```
+---
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+¡Gracias por visitar este proyecto! 🚀
